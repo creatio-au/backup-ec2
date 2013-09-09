@@ -13,9 +13,9 @@ for region in ec2.regions():
 
     print("Backing up region %s, %s volumes found" % (region.name, len(volumes)))
     for volume in volumes:
-        print(" Create snapshot for %s" % "volume.volume_id")
+        print(" Create snapshot for %s" % volume.id)
         volume.create_snapshot()
 
     conn.trim_snapshots(hourly_backups=0, daily_backups=7, weekly_backups=4)
 
-print("Done in %ss" % (time.time() - start))
+print("Done in %.1fs" % (time.time() - start))
