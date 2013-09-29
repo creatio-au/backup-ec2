@@ -1,12 +1,21 @@
 from boto import ec2
 import time
+import ConfigParser
 
 start = time.time()
 
+config = ConfigParser.ConfigParser()
+config.read('credentials.ini')
+if not config.has_option('default', 'access_key_id'):
+    raise Exception('No access_key_id option')
+
+if not config.has_option('default', 'secret_access_key'):
+    raise Exception('No secret_access_key option')
+
 for region in ec2.regions():
     conn = region.connect(
-        aws_access_key_id='AKIAJVM44OMLT75WWKRQ',
-        aws_secret_access_key='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'
+        aws_access_key_id=config.get('default', 'access_key_id'),
+        aws_secret_access_key=config.get('default', 'secret_access_key')
     )
 
     volumes = conn.get_all_volumes()
