@@ -1,11 +1,12 @@
 from boto import ec2
 import time
 import ConfigParser
+from os import path
 
 start = time.time()
 
 config = ConfigParser.ConfigParser()
-config.read('credentials.ini')
+config.read(path.dirname(path.abspath(__file__)) + '/credentials.ini')
 if not config.has_option('default', 'access_key_id'):
     raise Exception('No access_key_id option')
 
