@@ -32,7 +32,8 @@ for account_config in config.get('accounts'):
         smtp = smtplib.SMTP(monitoring.get('host'), monitoring.get('port'))
         smtp.starttls()
         smtp.login(monitoring.get('username'), monitoring.get('password'))
-        smtp.sendmail(monitoring.get('sender'), monitoring.get('receiver'), 'Error in backup AWS: {}'.format(repr(e)))
-        smtp.close()
+        r = smtp.sendmail(monitoring.get('sender'), monitoring.get('receiver'), 'Error in backup AWS: {}'.format(repr(e)))
+        print('response: ' + repr(r))
+        smtp.quit()
 
 print("Done in %.1fs" % (time.time() - start))
