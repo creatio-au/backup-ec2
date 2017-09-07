@@ -1,4 +1,4 @@
-from boto import ec2
+from boto import ec2, ses
 from boto.ses.connection import SESConnection
 import time
 import json
@@ -31,7 +31,8 @@ for account_config in config.get('accounts'):
         print('Error encountered, continuing backups: {}'.format(repr(e)))
         conn = SESConnection(
             aws_access_key_id=monitoring.get('access_key_id'),
-            aws_secret_access_key=monitoring.get('secret_access_key')
+            aws_secret_access_key=monitoring.get('secret_access_key'),
+            region=[r for r in ses.regions() if r.name == monitoring.get('region')][0]
         )
         r = conn.send_email(
             source=monitoring.get('sender'),
