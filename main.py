@@ -29,9 +29,8 @@ for account_config in config.get('accounts'):
             conn.trim_snapshots(hourly_backups=0, daily_backups=7, weekly_backups=4)
     except Exception as e:
         print('Error encountered, continuing backups: {}'.format(repr(e)))
-        smtp = smtplib.SMTP(monitoring.get('host'), monitoring.get('port'))
-        smtp.set_debuglevel(1)
-        smtp.starttls()
+        smtp = smtplib.SMTP_SSL(monitoring.get('host'), monitoring.get('port'))
+        smtp.ehlo()
         smtp.login(monitoring.get('username'), monitoring.get('password'))
         r = smtp.sendmail(monitoring.get('sender'), monitoring.get('receiver'), 'Error in backup AWS: {}'.format(repr(e)))
         print('response: ' + repr(r))
