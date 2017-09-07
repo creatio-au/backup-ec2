@@ -1,5 +1,5 @@
 from boto import ec2
-import smtplib
+from boto.ses.connection import SESConnection
 import time
 import json
 from os import path
@@ -29,11 +29,16 @@ for account_config in config.get('accounts'):
             conn.trim_snapshots(hourly_backups=0, daily_backups=7, weekly_backups=4)
     except Exception as e:
         print('Error encountered, continuing backups: {}'.format(repr(e)))
-        smtp = smtplib.SMTP_SSL(monitoring.get('host'), monitoring.get('port'))
-        smtp.ehlo()
-        smtp.login(monitoring.get('username'), monitoring.get('password'))
-        r = smtp.sendmail(monitoring.get('sender'), monitoring.get('receiver'), 'Error in backup AWS: {}'.format(repr(e)))
+        conn = SESConnection(
+            aws_access_key_id=monitoring.get('access_key_id'),
+            aws_secret_access_key=monitoring.get('secret_access_key')
+        )
+        r = conn.send_email(
+            source=monitoring.get('sender'),
+            to_addresses=[monitoring.get('receiver')],
+            subject='Backup AWS Error',
+            body='Error in backup AWS: {}'.format(repr(e))
+        )
         print('response: ' + repr(r))
-        smtp.quit()
 
 print("Done in %.1fs" % (time.time() - start))
