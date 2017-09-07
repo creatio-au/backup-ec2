@@ -34,12 +34,11 @@ for account_config in config.get('accounts'):
             aws_secret_access_key=monitoring.get('secret_access_key'),
             region=[r for r in ses.regions() if r.name == monitoring.get('region')][0]
         )
-        r = conn.send_email(
+        conn.send_email(
             source=monitoring.get('sender'),
             to_addresses=[monitoring.get('receiver')],
             subject='Backup AWS Error',
             body='Error in backup AWS: {}'.format(repr(e))
         )
-        print('response: ' + repr(r))
 
 print("Done in %.1fs" % (time.time() - start))
