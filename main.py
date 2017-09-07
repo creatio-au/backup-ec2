@@ -30,6 +30,7 @@ for account_config in config.get('accounts'):
     except Exception as e:
         print('Error encountered, continuing backups: {}'.format(repr(e)))
         smtp = smtplib.SMTP(monitoring.get('host'), monitoring.get('port'))
+        smtp.set_debuglevel(1)
         smtp.starttls()
         smtp.login(monitoring.get('username'), monitoring.get('password'))
         r = smtp.sendmail(monitoring.get('sender'), monitoring.get('receiver'), 'Error in backup AWS: {}'.format(repr(e)))
