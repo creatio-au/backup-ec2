@@ -29,7 +29,7 @@ for account_config in config.get('accounts'):
                 print("  Create snapshot for %s" % volume.id)
                 volume.create_snapshot()
 
-            print("Trimming snapshots")
+            print("  Trimming snapshots")
             conn.trim_snapshots(hourly_backups=0, daily_backups=7, weekly_backups=4)
         except Exception as e:
             print('>>> Error encountered, continuing backups: {}'.format(repr(e)))
