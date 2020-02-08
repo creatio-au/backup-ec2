@@ -5,6 +5,7 @@ import json
 from os import path
 import sys
 
+
 start = time.time()
 
 config_file = open(path.dirname(path.abspath(__file__)) + '/credentials.json', 'r')
