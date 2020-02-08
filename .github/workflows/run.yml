@@ -2,7 +2,7 @@ name: Deploy
 
 on:
   schedule:
-    - 37 2 * * *
+    - cron: 37 2 * * *
 
 jobs:
   deploy:
