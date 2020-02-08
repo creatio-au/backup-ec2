@@ -1,5 +1,7 @@
 # Backup EC2
 
+![.github/workflows/run.yml](https://github.com/creatio-au/backup-ec2/workflows/.github/workflows/run.yml/badge.svg)
+
 Small program to run through a set of AWS accounts and backup all EC2 Machines.
 
 
