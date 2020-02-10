@@ -1,6 +1,5 @@
 from boto import ec2
 import time
-import sys
 
 
 start = time.time()
@@ -26,8 +25,9 @@ for region in all_regions:
             print("  Trimming snapshots")
             conn.trim_snapshots(hourly_backups=0, daily_backups=7, weekly_backups=4)
     except Exception as e:
-        print('>>> Error encountered, continuing backups: {}'.format(repr(e)))
+        print(f">>> Error encountered, continuing backups: {e}")
         exceptions.append(e)
 
 print("Done in %.1fs" % (time.time() - start))
-sys.exit(len(exceptions))
+if len(exceptions) > 0:
+    raise exceptions[0]
