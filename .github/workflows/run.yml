@@ -1,8 +1,10 @@
-name: Deploy
+name: Run Backup
 
 on:
-  schedule:
-    - cron: 37 2 * * *
+  push:
+    branches: master
+#  schedule:
+#    - cron: 37 2 * * *
 
 jobs:
   deploy:
@@ -22,5 +24,7 @@ jobs:
           pip install -r requirements.txt
       - name: Setup credentials
         run: echo "${{ secrets.CREDENTIALS_JSON }}" > credentials.json
+      - name: Debug
+        run: cat credentials.json
       - name: Run
         run: python main.py
