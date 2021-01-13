@@ -1,6 +1,6 @@
 # Backup EC2
 
-![.github/workflows/run.yml](https://github.com/creatio-au/backup-ec2/workflows/.github/workflows/run.yml/badge.svg)
+![Run Backup](https://github.com/creatio-au/backup-ec2/workflows/Run%20Backup/badge.svg)
 
 Small program to run through a set of AWS accounts and backup all EC2 Machines.
 
