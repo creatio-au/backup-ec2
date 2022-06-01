@@ -1,3 +1,5 @@
+**Superceded by AWS Backup service**
+
 # Backup EC2
 
 ![Run Backup](https://github.com/creatio-au/backup-ec2/workflows/Run%20Backup/badge.svg)
